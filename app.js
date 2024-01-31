@@ -1,8 +1,9 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-const contactsRouter = require('./routes/api/contacts');
-
+import express from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+import contactsRouter from './routes/api/contactsRouter.js';
+import mongoose from './db.js';
+import usersRouter from './routes/api/usersRouter.js';
 const app = express();
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -18,8 +19,8 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const {status = 500, message = "Server error" } = err;
-  res.status(status).json({ message, });
+  res.status(500).json({ message: err.message });
 });
+app.use('/api/users', usersRouter);
 
-module.exports = app;
+export default app;
