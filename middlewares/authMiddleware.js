@@ -32,7 +32,7 @@ const authenticateUser = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "your-secret-key"); // Zastąp 'your-secret-key' sekretnym kluczem używanym do generowania JWT
+    const decoded = jwt.verify(token, "your-secret-key");
     req.user = decoded;
     next();
   } catch (error) {
